@@ -28,8 +28,8 @@ class Category implements Observable{
     }
     
     public function notify($type, IPostType $post) {
-        foreach ($this->_posts as $finde_post) {
-            if ($finde_post === $post) {
+        foreach ($this->_posts as $find_post) {
+            if ($find_post === $post) {
                 if (array_key_exists($type, $this->_observers)) {
                     $observers = $this->_observers[$type];
                     foreach ($observers as $key => $obj) {

@@ -16,11 +16,18 @@ class Mail {
     }
     
     static function makeMessage(IPostType $post_type, Observer $subscriber){
-        $rule = '';
-        if($subscriber->getPermissions() == 'editor'){
-            $rule = 'Edit it here!';
-        } else {
-            $rule = 'Read it here!';
+        switch ($subscriber->getPermissions()) {
+            case 'editor':
+                $rule = 'Edit it here!';
+                break;
+
+            case 'subscriber':
+                $rule = 'Read it here!';
+                break;
+            
+            default:
+                $rule = '';
+                break;
         }
         
         $message = 'Dear ' . $subscriber->getName() . '. <br/>' . 'New ' . get_class($post_type) . ' "' . $post_type->getTitle() . '" was added. ' . $rule . ' ' . $post_type->getLink();
